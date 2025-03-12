@@ -2,7 +2,7 @@ library(data.table)
 library(here)
 
 #Read in test dataset (see src_BASH for more details)
-ds <- fread("out.csv", fill=TRUE, header = TRUE)
+ds <- fread(here("data", "out.csv"), fill=TRUE, header = TRUE)
 
 #List of target software
 software <- c('Winclada',

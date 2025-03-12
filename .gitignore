@@ -2,6 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-data/english-sampled-jsonl.jsonl
+data/engligh-sampled-jsonl.jsonl
 data/out.csv
 eebdatarelease.Rproj
