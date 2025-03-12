@@ -27,7 +27,7 @@ result_df <- sapply(software, function(x) {
 result_df <- cbind.data.frame(DOI = testds$doi, result_df)
 
 #Export the dataset
-write.csv(here("data", "PAM.csv"))
+write.csv(result_df, here("data", "PAM.csv"))
 
 
 
