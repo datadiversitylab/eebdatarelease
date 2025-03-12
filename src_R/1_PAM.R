@@ -1,5 +1,6 @@
 library(data.table)
 library(here)
+library(pbapply)
 
 #Read in test dataset (see src_BASH for more details)
 ds <- fread(here("data", "out.csv"), fill=TRUE, header = TRUE)
@@ -15,18 +16,31 @@ software <- c('Winclada',
               'POPTREE2', 
               'RAPDistance')
 
-#Extract a subset of the rows
+##Extract a subset of the rows
 testds <- ds[1:5,]
 
-#Generate a presence absence matrix based on matches
-result_df <- sapply(software, function(x) {
+##Generate a presence absence matrix based on matches
+result_df <- pbsapply(software, function(x) {
   as.integer(grepl(x, testds$fullText, ignore.case = TRUE))
 })
 
-#Merge the DOI
+##Merge the DOI
 result_df <- cbind.data.frame(DOI = testds$doi, result_df)
 
-#Export the dataset
+##Export the dataset
+write.csv(result_df, here("data", "PAM_test.csv"))
+
+
+#Using the full dataset
+##Generate a presence absence matrix based on matches
+result_df <- pbsapply(software, function(x) {
+  as.integer(grepl(x, ds$fullText, ignore.case = TRUE))
+})
+
+##Merge the DOI
+result_df <- cbind.data.frame(DOI = ds$doi, result_df)
+
+##Export the dataset
 write.csv(result_df, here("data", "PAM.csv"))
 
 
