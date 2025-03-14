@@ -5,3 +5,4 @@
 data/engligh-sampled-jsonl.jsonl
 data/out.csv
 eebdatarelease.Rproj
+data/*.sh

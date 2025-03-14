@@ -44,6 +44,3 @@ result_df <- cbind.data.frame(DOI = ds$doi, result_df)
 write.csv(result_df, here("data", "PAM.csv"))
 
 
-
-
-
