@@ -3,7 +3,7 @@ library(here)
 library(pbapply)
 
 #Read in test dataset (see src_BASH for more details)
-ds <- fread(here("data", "out.csv"), fill = TRUE, header = TRUE)
+ds <- fread(here("data", "out.corrected.csv"), fill = TRUE, header = TRUE)
 
 ExtractContext <- function(text, words) {
   cleaned <- gsub("\\n", "", text, fixed = TRUE)
@@ -38,7 +38,7 @@ extractedWords <- lapply(1:nrow(testds), function(x){
   exW <- ExtractContext(text = testds$fullText[x], words = software)
   if (nrow(exW) > 0) {
     colnames(exW) <- c("Term", "Sentence")
-    cbind(exW, doi = testds$doi[x])
+    cbind(exW, identifier = testds$identifier[x])
   }
 })
 
@@ -46,4 +46,5 @@ extractedWords <- rbindlist(extractedWords)
 
 write.csv(extractedWords, here("data/Context_test.csv"))
 
+barplot(table(extractedWords$Term))
 
