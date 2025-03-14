@@ -32,9 +32,9 @@ software <- c(
   'RAPDistance'
 )
 
+#Test dataset
 testds <- ds[1:100, ]
-
-extractedWords <- lapply(1:nrow(testds), function(x){
+extractedWords <- pblapply(1:nrow(testds), function(x){
   exW <- ExtractContext(text = testds$fullText[x], words = software)
   if (nrow(exW) > 0) {
     colnames(exW) <- c("Term", "Sentence")
@@ -43,8 +43,20 @@ extractedWords <- lapply(1:nrow(testds), function(x){
 })
 
 extractedWords <- rbindlist(extractedWords)
-
 write.csv(extractedWords, here("data/Context_test.csv"))
+barplot(table(extractedWords$Term))
 
+
+#Full dataset
+extractedWords <- pblapply(1:nrow(ds), function(x){
+  exW <- ExtractContext(text = ds$fullText[x], words = software)
+  if (nrow(exW) > 0) {
+    colnames(exW) <- c("Term", "Sentence")
+    cbind(exW, identifier = ds$identifier[x])
+  }
+})
+
+extractedWords <- rbindlist(extractedWords)
+write.csv(extractedWords, here("data/Context.csv"))
 barplot(table(extractedWords$Term))
 
