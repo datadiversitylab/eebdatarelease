@@ -32,11 +32,11 @@ software <- c(
   'RAPDistance'
 )
 
-testds <- ds[1:50, ]
+testds <- ds[1:100, ]
 
 extractedWords <- lapply(1:nrow(testds), function(x){
   exW <- ExtractContext(text = testds$fullText[x], words = software)
-  if( nrow(exW) > 0 ){
+  if (nrow(exW) > 0) {
     colnames(exW) <- c("Term", "Sentence")
     cbind(exW, doi = testds$doi[x])
   }
