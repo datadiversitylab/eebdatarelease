@@ -43,7 +43,7 @@ extractedWords <- pblapply(1:nrow(testds), function(x){
 })
 
 extractedWords <- rbindlist(extractedWords)
-write.csv(extractedWords, here("data/Context_test.csv"))
+write.csv(extractedWords, here("data", "Context_test.csv"))
 barplot(table(extractedWords$Term))
 
 
@@ -57,6 +57,6 @@ extractedWords <- pblapply(1:nrow(ds), function(x){
 })
 
 extractedWords <- rbindlist(extractedWords)
-write.csv(extractedWords, here("data/Context.csv"))
+write.csv(extractedWords, here("data", "Context.csv"))
 barplot(table(extractedWords$Term))
 
