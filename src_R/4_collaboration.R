@@ -43,8 +43,7 @@ collab_trends <- collaboration_data %>%
   group_by(publication_year) %>%
   mutate(proportion = papers / sum(papers))
 
-print("Collaboration trends over time:")
-print(collab_trends)
+collab_trends
 
 # Statistical test: Has international collaboration increased over time?
 international_papers <- collaboration_data %>%
@@ -55,9 +54,7 @@ logit_model <- glm(is_international ~ publication_year,
                    data = international_papers,
                    family = binomial)
 
-cat("\nLogistic regression: International collaboration ~ Year\n")
-cat("Coefficient (log-odds):", round(coef(logit_model)[2], 4), "\n")
-cat("P-value:", round(summary(logit_model)$coefficients[2, 4], 4), "\n")
+summary(logit_model)
 
 # Collaboration by research term
 collab_by_term <- collaboration_data %>%
@@ -66,7 +63,6 @@ collab_by_term <- collaboration_data %>%
   group_by(Term) %>%
   mutate(proportion = papers / sum(papers))
 
-print("\nCollaboration patterns by research term:")
 print(collab_by_term)
 
 # Visualization
@@ -206,7 +202,6 @@ cat("P-value:", round(diversity_cor$p.value, 4), "\n")
 # =============================================================================
 # AUTHOR POSITION AND CAREER PATTERNS
 # =============================================================================
-
 
 # Author position distribution
 position_dist <- df %>%
