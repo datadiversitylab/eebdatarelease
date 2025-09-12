@@ -110,7 +110,6 @@ country_comparison[is.na(country_comparison)] <- 0
 country_comparison$leadership_ratio <- country_comparison$total_leadership /
   country_comparison$total_participation
 
-print("\nCountry participation vs leadership:")
 print(head(country_comparison[order(-country_comparison$leadership_ratio),], 10))
 
 # Test: Do certain countries dominate specific research terms?
@@ -224,17 +223,15 @@ position_matrix <- country_positions %>%
   select(institution_country_code, author_position, count) %>%
   pivot_wider(names_from = author_position, values_from = count, values_fill = 0)
 
-if ("first" %in% names(position_matrix) && "last" %in% names(position_matrix)) {
   # Chi-square test
   chi_matrix <- as.matrix(position_matrix[, c("first", "last")])
   rownames(chi_matrix) <- position_matrix$institution_country_code
   
-  if (min(chi_matrix) >= 5 && nrow(chi_matrix) > 1) {
+
     chi_test <- chisq.test(chi_matrix)
     cat("Chi-square test: Country differences in first/last authorship\n")
     cat("P-value:", round(chi_test$p.value, 4), "\n")
-  }
-}
+
 
 # Career progression analysis (if we have individual author data)
 author_progression <- df %>%
