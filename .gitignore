@@ -7,3 +7,4 @@ data/out.csv
 eebdatarelease.Rproj
 data/*.sh
 data/out.*
+.DS_Store
