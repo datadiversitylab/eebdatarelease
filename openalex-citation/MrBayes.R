@@ -67,7 +67,7 @@ citing_works <- oa_fetch(
 getwd()
 dois <- read.csv2("C:/Users/sebratt/Downloads/eeb_dois188.csv", header=TRUE, sep = ",")
 
-for (i in 9:nrow(dois))
+for (i in 2:nrow(dois))
 {
   #i = 1
   doi <- dois[i,]
@@ -132,7 +132,12 @@ year = 2005
 
 } 
 
-f_df <- final_df[,]
+f_df <- final_df[which(!duplicated(final_df)),]
+
+saveRDS(f_df, "eeb_finaldf.rds")
+getwd()
+
+eeb_df <- loadRDS("eeb_finaldf.rds")
 
 # Tutorial on paging from Jeff Oliver: ipynb 
 # https://github.com/ourresearch/openalex-api-tutorials/blob/main/notebooks/getting-started/paging.ipynb
